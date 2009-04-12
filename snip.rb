@@ -1,10 +1,12 @@
-%w(rubygems sinatra dm-core dm-timestamps).each  { |lib| require lib}
+%w(rubygems sinatra dm-core dm-timestamps uri).each  { |lib| require lib}
 
 get '/' do haml :index end
 
 post '/' do
-  @url = Url.first(:original => params[:original])
-  @url = Url.create(:original => params[:original]) if @u.nil?
+  uri = URI::parse(params[:original])
+  raise "Invalid URL" unless uri.kind_of? URI::HTTP or uri.kind_of? URI::HTTPS
+  @url = Url.first(:original => uri.to_s)
+  @url = Url.create(:original => uri.to_s) if @url.nil?
   haml :index
 end
 
