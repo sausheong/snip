@@ -50,3 +50,5 @@ __END__
 %small copyright &copy;
 %a{:href => 'http://blog.saush.com'}
   Chang Sau Sheong
+%a{:href => 'http://github.com/sausheong/snip'}
+  Full source code
