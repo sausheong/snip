@@ -5,8 +5,7 @@ get '/' do haml :index end
 post '/' do
   uri = URI::parse(params[:original])
   raise "Invalid URL" unless uri.kind_of? URI::HTTP or uri.kind_of? URI::HTTPS
-  @url = Url.first(:original => uri.to_s)
-  @url = Url.create(:original => uri.to_s) if @url.nil?
+  @url = Url.first_or_create(:original => uri.to_s)
   haml :index
 end
 
